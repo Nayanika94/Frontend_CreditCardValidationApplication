@@ -18,7 +18,8 @@
             pattern="[0-9\s]{13,16}" placeholder="xxxx xxxx xxxx xxxx">
           <span
             *ngIf="submitted && !creditCardNumberGroup.get('cardNumber').valid && creditCardNumberGroup.get('cardNumber').touched"
-            class="help-block error">Please enter a valid card number!
+            class="help-block error">
+            Please enter a valid card number!
           </span>
 
           <span *ngIf="submitted && creditCardNumberGroup.valid" class="help-block">This is

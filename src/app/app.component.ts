@@ -5,13 +5,10 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
-import {
-  cardNumberValidator,
-  cardTypeValidator,
-} from './validators/cardNumberValidator';
+import { cardNumberValidator } from './validators/cardNumberValidator';
 import { Creditcard } from './models/creditcard';
 import { CreditcardServiceService } from './services/creditcard-service.service';
-import { cardTypeCheck } from './helpers/cardTypeCheck.helper';
+import { cardTypeValidator } from './validators/cardTypeValidator';
 
 @Component({
   selector: 'app-root',
@@ -35,7 +32,6 @@ export class AppComponent {
         Validators.minLength(13),
         Validators.maxLength(16),
         cardNumberValidator(),
-        cardTypeValidator(),
       ]),
       type: new FormControl('', cardTypeValidator()),
     });
