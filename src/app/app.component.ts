@@ -53,7 +53,6 @@ export class AppComponent {
       return;
     }
     this.isLoading = true;
-    console.log(this.creditCardNumberGroup);
     this.creditCardService
       .save(this.creditCardNumberGroup.value.cardNumber)
       .subscribe((result) => {
