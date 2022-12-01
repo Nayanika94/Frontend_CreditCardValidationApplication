@@ -54,8 +54,17 @@ button:hover {
 }
 
 svg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   max-height: 50rem;
   max-width: 150px;
+}
+
+svg.loading {
+  margin: 10rem auto;
+  float: none;
+  height: 15px;
 }
 
 input.ng-invalid.ng-touched {
