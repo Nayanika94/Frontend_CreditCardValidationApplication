@@ -15,7 +15,7 @@
 
           <label for="cardnumber">Card Number</label>
           <input id="cardnumber" class="form-control" type="tel" formControlName="cardNumber" inputmode="numeric"
-            pattern="[0-9\s]{13,16}" placeholder="xxxx xxxx xxxx xxxx">
+            pattern="[0-9\s]{13,16}" placeholder="xxxx xxxx xxxx xxxx" (keyup)="resetFormSubmission()">
           <span
             *ngIf="submitted && !creditCardNumberGroup.get('cardNumber').valid && creditCardNumberGroup.get('cardNumber').touched"
             class="help-block error">
@@ -24,8 +24,7 @@
 
           <span *ngIf="submitted && creditCardNumberGroup.valid" class="help-block">This is
             a valid card</span>
-          <div [ngSwitch]="creditcard.type"
-            *ngIf="creditCardNumberGroup.get('cardNumber').valid && creditCardNumberGroup.get('type').valid">
+          <div [ngSwitch]="creditcard.type" *ngIf="submitted">
             <ng-template [ngSwitchCase]="'Visa'">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                 <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->

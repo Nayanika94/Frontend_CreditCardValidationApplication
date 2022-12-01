@@ -8,7 +8,6 @@ import {
 import { cardNumberValidator } from './validators/cardNumberValidator';
 import { Creditcard } from './models/creditcard';
 import { CreditcardServiceService } from './services/creditcard-service.service';
-import { cardTypeValidator } from './validators/cardTypeValidator';
 
 @Component({
   selector: 'app-root',
@@ -33,14 +32,13 @@ export class AppComponent {
         Validators.maxLength(16),
         cardNumberValidator(),
       ]),
-      type: new FormControl('', cardTypeValidator()),
     });
 
     const storedID = localStorage.getItem('UUID');
     if (storedID) {
       this.creditCardService.findById(storedID).subscribe((res) => {
         this.creditCardNumberGroup.patchValue({
-          cardNumber: res.number,
+          cardNumber: res?.number,
         });
         this.isLoading = false;
       });
@@ -51,10 +49,10 @@ export class AppComponent {
 
   onSubmit() {
     this.submitted = true;
-    // if (this.creditCardNumberGroup.invalid) {
-    //   return;
-    // }
-
+    if (this.creditCardNumberGroup.invalid) {
+      return;
+    }
+    this.isLoading = true;
     console.log(this.creditCardNumberGroup);
     this.creditCardService
       .save(this.creditCardNumberGroup.value.cardNumber)
@@ -62,13 +60,14 @@ export class AppComponent {
         localStorage.setItem('UUID', result.id);
         const type = this.setType(result);
         this.creditcard.type = type;
-        this.creditCardNumberGroup.controls.type.setValue(type);
+        this.isLoading = false;
       });
   }
 
   onReset() {
     this.creditCardNumberGroup.reset();
     this.creditcard.type = '';
+    this.submitted = false;
   }
 
   setType(result: Creditcard) {
@@ -81,5 +80,9 @@ export class AppComponent {
         return (result.type = 'AmericanExpress');
       }
     }
+  }
+
+  resetFormSubmission() {
+    this.submitted = false;
   }
 }
